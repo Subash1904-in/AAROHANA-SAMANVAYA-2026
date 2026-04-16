@@ -302,13 +302,13 @@ option { font-weight: normal; font-style: normal; }
     }
     .hero-content .fest-title { font-size: 3rem; }
     .hero-content .theme-kannada { font-size: 1.6rem; }
-    .main-navigation { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--header-bg); box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 1px solid var(--border-light); }
-    .main-navigation.active { display: block; }
-    .main-navigation ul { flex-direction: column; padding: 10px 0; gap: 0; }
-    .main-navigation li { width: 100%; text-align: center; border-bottom: 1px solid #eee; }
+    .main-navigation { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background-color: rgba(10,10,10,0.95); backdrop-filter: blur(20px); box-shadow: -5px 0 25px rgba(0,0,0,0.8); border-left: 1px solid var(--border-medium); transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1000; display: flex; flex-direction: column; justify-content: center; }
+    .main-navigation.active { right: 0; }
+    .main-navigation ul { flex-direction: column; padding: 20px; gap: 25px; align-items: center; }
+    .main-navigation li { width: 100%; text-align: center; border-bottom: none; }
     .main-navigation li:last-child { border-bottom: none; }
-    .main-navigation a { display: block; padding: 15px; border-bottom: none; font-size: 1rem; }
-    .main-navigation a:hover { background-color: #f8f8f8; color: var(--primary-color); border-bottom: none; }
+    .main-navigation a { display: block; padding: 15px; border-bottom: none; font-size: 1.3rem; letter-spacing: 2px; }
+    .main-navigation a:hover { background-color: transparent; color: var(--primary-color); border-bottom: none; transform: scale(1.05); }
     .menu-toggle { display: block; }
     .gallery-grid, .events-grid, .sponsors-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
     /* Committee grids */
@@ -319,9 +319,10 @@ option { font-weight: normal; font-style: normal; }
     #committee-page .insta-link i.fab.fa-instagram { font-size: 1.8rem; }
     #committee-page .team-members .insta-link i.fab.fa-instagram { font-size: 1.5rem; }
     /* Managing committee columns */
-     #managing-committee-page .managing-top-row, #managing-committee-page .managing-bottom-row { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-      .managing-member-photo { max-width: 220px; /* Smaller photos */ }
-      .managing-member h4 { font-size: 1.2rem; }
+     #managing-committee-page .managing-top-row, #managing-committee-page .managing-bottom-row { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .managing-member { height: auto; padding: 20px; }
+      .managing-member-photo { max-width: 100%; width: 220px; height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }
+      .managing-member h4 { font-size: 1.3rem; margin-top: 15px; }
       .managing-member p.designation { font-size: 0.95rem; }
       .group-photo-description { font-size: 0.9rem; text-align: center; }
     /* Modal responsive */
@@ -345,12 +346,13 @@ option { font-weight: normal; font-style: normal; }
     .hero-content .fest-title { font-size: 2.5rem; }
     .hero-content .theme-kannada { font-size: 1.3rem; }
     .section-title { font-size: 1.8rem; }
-    .main-navigation a { font-size: 0.75rem; letter-spacing: 0; padding: 8px 2px;}
+    .main-navigation a { font-size: 1.1rem; letter-spacing: 1px; padding: 10px; }
     .button { padding: 10px 18px; font-size: 0.85rem; } /* Smaller buttons */
     .gallery-grid, .events-grid, .sponsors-grid { grid-template-columns: 1fr; gap: 20px; } /* Single column */
     #committee-page .core-committee, #committee-page .team-leads, #committee-page .team-members { grid-template-columns: 1fr; }
-     #managing-committee-page .managing-top-row, #managing-committee-page .managing-bottom-row { grid-template-columns: 1fr; /* Single column */ }
-     .managing-member-photo { max-width: 200px; }
+     #managing-committee-page .managing-top-row, #managing-committee-page .managing-bottom-row { grid-template-columns: 1fr; gap: 30px; /* Single column */ }
+     .managing-member { height: auto; padding: 20px 15px; }
+     .managing-member-photo { max-width: 100%; width: 200px; height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }
     .gallery-grid img { height: 200px; }
     .event-poster-image { height: auto; aspect-ratio: auto; }
     .event-poster-title { font-size: 1rem; padding: 12px 10px 8px 10px; }
