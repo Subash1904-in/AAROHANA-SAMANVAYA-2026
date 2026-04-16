@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# Allow static website files
+!index.html
+!events.html
+!schedule.html
+!committee.html
+!managing_committee.html
+!script.js
+!style.css
+!images/
+!images/**
+
+# Allow .gitignore
+!.gitignore
