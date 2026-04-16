@@ -185,6 +185,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 @media (max-width: 600px) {
     .events-grid { grid-template-columns: 1fr; }
+    .event-poster-image { height: auto; max-height: 400px; aspect-ratio: auto; }
 }
 
 /* --- Event Modal Styles --- */
@@ -351,7 +352,7 @@ option { font-weight: normal; font-style: normal; }
      #managing-committee-page .managing-top-row, #managing-committee-page .managing-bottom-row { grid-template-columns: 1fr; /* Single column */ }
      .managing-member-photo { max-width: 200px; }
     .gallery-grid img { height: 200px; }
-    .event-poster-image { aspect-ratio: 3 / 4;aspect-ratio: 420 / 646; }
+    .event-poster-image { height: auto; aspect-ratio: auto; }
     .event-poster-title { font-size: 1rem; padding: 12px 10px 8px 10px; }
     .sponsor-logo img { max-height: 100px; }
     #committee-page .member-photo-wrapper { margin: 0 auto 10px auto; }
