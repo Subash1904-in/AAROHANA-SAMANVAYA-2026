@@ -131,7 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
             modalTime.textContent = card.dataset.time || 'TBA';
             modalVenue.textContent = card.dataset.venue || 'TBA';
             modalFee.textContent = card.dataset.fee || 'N/A';
-            modalDescription.textContent = card.dataset.description || 'More details coming soon.';
+            const eventDescription = (card.dataset.description || '').trim();
+            modalDescription.textContent = eventDescription;
+            modalDescription.style.display = eventDescription ? 'block' : 'none';
             modalType.innerHTML = card.dataset.type === 'Group' ? '<i class="fas fa-users"></i> Group Event' : '<i class="fas fa-user"></i> Solo Event';
 
             // Handle Poster Image
