@@ -35,6 +35,8 @@
 
 html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 body {
@@ -43,6 +45,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     font-size: 16px;
+    max-width: 100%;
     overflow-x: hidden;
 }
 
@@ -116,9 +119,10 @@ img {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: fixed;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: calc(100% - 16px);
     max-width: 1000px;
     border-radius: 50px;
     z-index: 1000;
@@ -134,6 +138,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 0;
 }
 
 .logo img {
@@ -141,6 +146,10 @@ img {
     width: auto;
     filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
     transition: filter 0.3s;
+}
+
+.logo {
+    flex-shrink: 0;
 }
 
 .logo img:hover {
@@ -186,6 +195,8 @@ img {
     font-size: 2rem;
     cursor: pointer;
     color: var(--primary-color);
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 /* --- Premium Hero Section --- */
@@ -1657,9 +1668,10 @@ option {
     }
 
     .site-header {
-        width: 95%;
+        width: calc(100% - 12px);
         border-radius: 30px;
         padding: 8px 15px;
+        top: 10px;
     }
 
     .logo img {
@@ -1730,7 +1742,7 @@ option {
     .main-navigation {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         width: 280px;
         height: 100vh;
         height: 100dvh;
@@ -1738,7 +1750,8 @@ option {
         backdrop-filter: blur(20px);
         box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8);
         border-left: 1px solid var(--border-medium);
-        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         z-index: 1000;
         display: flex;
         flex-direction: column;
@@ -1746,7 +1759,7 @@ option {
     }
 
     .main-navigation.active {
-        right: 0;
+        transform: translateX(0);
     }
 
     .main-navigation ul {
