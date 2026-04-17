@@ -4,8 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Menu Toggle Functionality ---
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-navigation');
+    const menuClose = document.querySelector('.menu-close');
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
+
+        if (menuClose) {
+            menuClose.addEventListener('click', () => mainNav.classList.remove('active'));
+        }
+
+        document.addEventListener('click', (event) => {
+            if (window.innerWidth > 768 || !mainNav.classList.contains('active')) {
+                return;
+            }
+
+            const clickedInsideNav = mainNav.contains(event.target);
+            const clickedToggle = menuToggle.contains(event.target);
+
+            if (!clickedInsideNav && !clickedToggle) {
+                mainNav.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+            }
+        });
     } else {
         if (!menuToggle) console.error('Error: Menu toggle button (.menu-toggle) not found.');
         if (!mainNav) console.error('Error: Main navigation element (.main-navigation) not found.');
