@@ -7,10 +7,24 @@
 !schedule.html
 !committee.html
 !managing_committee.html
+!results.html
 !script.js
 !style.css
 !images/
 !images/**
+!vercel.json
+
+# Keep temporary/unwanted local artifacts ignored
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.venv/
+*.log
+*.tmp
+*.temp
+~$*
 
 # Allow .gitignore
 !.gitignore

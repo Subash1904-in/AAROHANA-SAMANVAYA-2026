@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - AAROHANA 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-flex">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo/kssem-logo-placeholder.webp" alt="KSSEM Logo"></a>
+            </div>
+            <nav class="main-navigation">
+                <button class="menu-close" aria-label="Close Menu">&times;</button>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#samanvaya">Theme</a></li>
+                    <li><a href="results.html" class="active">Results</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="committee.html">Committee</a></li>
+                    <li><a href="managing_committee.html">Patrons</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section reveal">
+            <div class="container">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 40px;">
+                    <i class="fas fa-trophy fa-3x" style="color: var(--primary-color); margin-bottom: 15px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);"></i>
+                    <h2 class="section-title" style="margin-bottom: 10px;">Official Results</h2>
+                    <p class="text-center" style="max-width: 600px; color: #aaa;">The ultimate convergence of talent. Announcing the official winners and highlights from AAROHANA 2026 events.</p>
+                </div>
+                
+                <div id="results-loader" style="text-align: center; color: var(--primary-color); font-style: italic; padding: 40px;">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i><br><span style="display:inline-block; margin-top:10px;">Fetching Results...</span>
+                </div>
+                
+                <div id="results-list" style="display: flex; flex-direction: column; gap: 25px; max-width: 800px; margin: 0 auto; width: 100%;">
+                    <!-- Javascript will securely populate this from the events.html datastore -->
+                </div>
+                
+                <div id="no-results" style="display:none; text-align: center; color: #888; padding: 60px 40px; background: rgba(5,5,5,0.6); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; max-width: 500px; margin: 0 auto;">
+                    <i class="fas fa-hourglass-half fa-2x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <h3 style="color: #ccc; font-weight: 300;">Results Coming Soon</h3>
+                    <p style="font-size: 0.9rem;">The competitions are still underway or under evaluation. Check back here to see who claims the victory!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 AAROHANA - K. S. School of Engineering and Management. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/kssem_culturals/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/KSSEM-Aarohana-113875901332469" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://whatsapp.com/channel/0029VaSi5H05K3za6AUvZF2I" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const resultsList = document.getElementById('results-list');
+            const loader = document.getElementById('results-loader');
+            const noResults = document.getElementById('no-results');
+
+            try {
+                // Fetch events.html to statically parse out elements that have data-result
+                const response = await fetch('events.html');
+                if(!response.ok) throw new Error("Could not load events DOM map");
+                
+                const htmlText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                
+                
+                let eventCardsArray = Array.from(doc.querySelectorAll('.event-card'));
+                // Sort the event cards array alphabetically by their data-title attribute
+                eventCardsArray.sort((a, b) => {
+                    const titleA = (a.dataset.title || '').trim().toLowerCase();
+                    const titleB = (b.dataset.title || '').trim().toLowerCase();
+                    return titleA.localeCompare(titleB);
+                });
+                
+                let foundResults = false;
+                let delayMs = 0;
+
+                eventCardsArray.forEach(card => {
+                    const resultText = (card.dataset.result || '').trim();
+                    if (resultText !== '') {
+                        foundResults = true;
+                        
+                        const title = card.dataset.title || 'Event';
+                        const date = card.dataset.date || 'TBA';
+                        const type = card.dataset.type || 'Solo';
+                        
+                        const resultCardBlock = document.createElement('div');
+                        resultCardBlock.className = 'tilt-card';
+                        
+                        // We do a manual fade-in
+                        resultCardBlock.style.opacity = '0';
+                        resultCardBlock.style.transform = 'translateY(20px)';
+                        resultCardBlock.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                        resultCardBlock.style.background = 'linear-gradient(135deg, rgba(15,15,15,0.95), rgba(5,5,5,0.98))';
+                        resultCardBlock.style.border = '1px solid rgba(212, 175, 55, 0.2)';
+                        resultCardBlock.style.borderRadius = '12px';
+                        resultCardBlock.style.padding = '30px';
+                        resultCardBlock.style.position = 'relative';
+                        resultCardBlock.style.overflow = 'hidden';
+                        resultCardBlock.style.boxShadow = '0 15px 35px rgba(0,0,0,0.5)';
+                        
+                        // Build normal flex list panel
+                        resultCardBlock.innerHTML = `
+                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary-color);"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin-bottom: 20px;">
+                                <div>
+                                    <h3 style="color: var(--primary-color); margin: 0 0 8px 0; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px;">${title}</h3>
+                                    <span style="color: #888; font-size: 0.9rem;"><i class="fas fa-calendar-alt"></i> ${date} &nbsp; | &nbsp; ${type === 'Group' ? '<i class="fas fa-users"></i>' : '<i class="fas fa-user"></i>'} ${type} Event</span>
+                                </div>
+                                <i class="fas fa-award fa-3x" style="color: rgba(212, 175, 55, 0.15);"></i>
+                            </div>
+                            
+                            <div style="color: #fff; white-space: pre-wrap; font-size: 1.15rem; line-height: 1.8;">${resultText}</div>
+                        `;
+                        
+                        resultsList.appendChild(resultCardBlock);
+                        
+                        setTimeout(() => {
+                            resultCardBlock.style.opacity = '1';
+                            resultCardBlock.style.transform = 'translateY(0)';
+                        }, delayMs);
+                        delayMs += 100;
+                    }
+                });
+
+                loader.style.display = 'none';
+                if (!foundResults) {
+                    noResults.style.display = 'block';
+                }
+
+            } catch (error) {
+                console.error("Error loading results:", error);
+                loader.innerHTML = '<span style="color: #ff4d4d;"><i class="fas fa-exclamation-triangle"></i> Cannot establish connection to Events Engine.</span>';
+            }
+        });
+    </script>
+</body>
+</html>
