@@ -55,6 +55,22 @@
                     <h3 style="color: #ccc; font-weight: 300;">Results Coming Soon</h3>
                     <p style="font-size: 0.9rem;">The competitions are still underway or under evaluation. Check back here to see who claims the victory!</p>
                 </div>
+
+                <div style="max-width: 800px; margin: 40px auto 0; width: 100%;">
+                    <h3 style="color: var(--primary-color); margin: 0 0 18px 0; font-family: var(--font-heading); letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-chalkboard-teacher"></i> Faculty Events
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px;">
+                        <a href="Faculty%20winners%20list%20updated.pdf" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(15,15,15,0.95), rgba(5,5,5,0.98)); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 18px 20px; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
+                            <h4 style="margin: 0 0 8px 0; color: var(--primary-color); font-size: 1.05rem;">Faculty Winners List (Updated)</h4>
+                            <p style="margin: 0; color: #bbb; font-size: 0.92rem;"><i class="fas fa-file-pdf"></i> Open PDF</p>
+                        </a>
+                        <a href="Faculty%20winners%20list.pdf" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(15,15,15,0.95), rgba(5,5,5,0.98)); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 18px 20px; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.35);">
+                            <h4 style="margin: 0 0 8px 0; color: var(--primary-color); font-size: 1.05rem;">Faculty Winners List</h4>
+                            <p style="margin: 0; color: #bbb; font-size: 0.92rem;"><i class="fas fa-file-pdf"></i> Open PDF</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -89,12 +105,6 @@
                 
                 
                 let eventCardsArray = Array.from(doc.querySelectorAll('.event-card'));
-                // Sort the event cards array alphabetically by their data-title attribute
-                eventCardsArray.sort((a, b) => {
-                    const titleA = (a.dataset.title || '').trim().toLowerCase();
-                    const titleB = (b.dataset.title || '').trim().toLowerCase();
-                    return titleA.localeCompare(titleB);
-                });
                 
                 let foundResults = false;
                 let delayMs = 0;
